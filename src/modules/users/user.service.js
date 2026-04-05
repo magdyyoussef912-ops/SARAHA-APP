@@ -247,7 +247,7 @@ export const signIn = async (req ,res, next)=>{
 
     const user = await db_service.findOne({model:userModel,filter:{email,confirmed:{$exists:true},provider:providerEnum.system}})
     if (!user) {
-        throw new Error("user Not Found",{cause:409})        
+        throw new Error("user Not Exist or not confirmed or not registered with system",{cause:409})        
     }
 
     const block_password = await get(block_password_key({email}))
@@ -337,12 +337,7 @@ export const confirmLogin = async (req,res,next)=>{
 }
 
 export const getProfile = async (req,res,next)=>{
-    // const key = `profile::${req.user}`
-    // const userExist = await get(key)
-    // if (userExist) {
-    //     successeResponsive({res,data:userExist})
-    // }
-    // await setValue({key,value:req.user,ttl:60})
+
     successeResponsive({res,data:{
         firstName:req.user.firstName,
         lastName:req.user.lastName,

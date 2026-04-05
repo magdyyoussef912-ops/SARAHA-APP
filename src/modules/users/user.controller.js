@@ -13,7 +13,7 @@ const userRouter =  Router()
 // cloudinary || signUp Send Otp
 userRouter.post("/signUp",
     multer_host([...multer_enum.image]).single("attachment"),
-    // validation(UV.signUpSchema),
+    validation(UV.signUpSchema),
     US.signUp
 )
 // confirm Email with Otp
